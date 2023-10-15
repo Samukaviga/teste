@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Video App</title>
+  <style media="screen">
+    * {
+      margin: 0;
+    }
+
+    /*
+      #videoDiv{
+        display: grid;
+        grid-gap: 10px;
+        height:80%;
+        position: relative;
+        grid-template-columns: repeat(auto-fill, 400px); 
+        grid-auto-rows: 300px;
+      } */
+    #footer {
+      width: 100%;
+      height: 50px;
+      background-color: white;
+      display: flex;
+      justify-content: center;
+      flex: 1;
+      border-bottom: 1px solid grey;
+      margin-top: 10px;
+    }
+
+    button {
+      height: 30px;
+      width: 100px;
+      padding: 2em;
+      margin-top: 10px;
+      text-align: center;
+      border-radius: 10px;
+      outline: none;
+      border: none;
+      text-decoration: none;
+      background-color: red;
+      cursor: pointer;
+    }
+
+    .div-botoes {
+      display: flex;
+      justify-content: space-evenly;
+
+    }
+
+    .botao-pausar {
+      background-color: rgb(183, 255, 0);
+      padding: 2em;
+      width: 100px;
+      text-align: center;
+
+    }
+
+    #videos {
+      padding: 0 20px;
+      flex: 1;
+      position: relative;
+
+    }
+
+    #user-1 {
+      position: absolute;
+      border: 1px solid #cddfe7;
+      bottom: 60px;
+      right: 40px;
+      box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2);
+      border-radius: 5px;
+      width: 300px;
+    }
+
+    #user-2 {
+      border: 1px solid #cddfe7;
+      width: 100%;
+      height: 100%;
+      box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    video {
+      background-color: rgb(63, 62, 62);
+      object-fit: cover;
+    }
+
+    .div-botoes {
+      position: absolute;
+      display: flex;
+      width: 200px;
+      column-gap: 2em;
+      bottom: 100px;
+      left: 100px;
+      
+    }
+
+
+    /*
+      video {
+        width: 100%;
+        height: 100%;
+        object-fit:cover;
+        border:2px solid white;
+      } */
+    /*
+      #videos {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        column-gap: 1em;
+        width: 100%;
+        padding: 10px;
+      } */
+
+    /*
+      video {
+        width: 100%;
+        border:2px solid greenyellow;
+        background-color: rgb(63, 62, 62);
+
+      } */
+
+    @media (max-width: 800px) {
+      #user-1 {
+        width: 200px;
+      }
+    
+    }
+
+    @media (max-width: 550px) {
+      #user-1 {
+        width: 100px;
+      }
+    }
+
+
+  </style>
+  <script type="text/javascript">
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const roomName = urlParams.get('room');
+
+
+  </script>
+  <script src="https://unpkg.com/peerjs@1.3.1/dist/peerjs.min.js" defer></script>
+  <script src="socket.io/socket.io.js" defer></script>
+  <script src="index.js" charset="utf-8" defer></script>
+</head>
+
+<body>
+<!-- Display VIDEO -->
+  <div id="videos">
+    
+    <video id="user-1" autoplay playsinline></video>
+    <video id="user-2" autoplay playsinline></video>
+ 
+      <!-- botoes 
+    <div class="div-botoes">
+      <button id="sair">SAIR</button>
+      <button id="pauseResumeButton" class="botao-pausar">PAUSAR</button>
+    </div> -->
+  
+  </div>
+
+
+  <footer></footer>
+</body>
+
+  <!-- SCRIPTS -->
+  <script>
+
+    const pauseResumeButton = document.getElementById('pauseResumeButton');
+
+    let isVideoPaused = false;
+
+    pauseResumeButton.addEventListener('click', () => {
+      if (isVideoPaused) {
+        // Se o vídeo estiver pausado, retome a transmissão
+        myVideoStream.getVideoTracks()[0].enabled = true;
+        isVideoPaused = false;
+        pauseResumeButton.textContent = 'PAUSAR';
+      } else {
+        // Se o vídeo estiver ativo, pause a transmissão
+        myVideoStream.getVideoTracks()[0].enabled = false;
+        isVideoPaused = true;
+        pauseResumeButton.textContent = 'EXIBIR';
+      }
+    });
+
+  </script>
+
+</html>

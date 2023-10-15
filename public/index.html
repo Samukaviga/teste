@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+        <style>
+            .sala {
+                display: block; /* Exibe como bloco */
+                padding: 20px; /* Espaçamento interno */
+                width: 30%;
+                font-size: 30px;
+                text-align: center;
+                margin-bottom: 10px; /* Espaçamento inferior */
+                text-decoration: none; /* Remove sublinhado do link */
+                color: #ffffff; /* Cor do texto */
+                background-color: #3498db; /* Cor de fundo */
+                border-radius: 5px; /* Borda arredondada */
+                transition: background-color 0.3s ease; /* Efeito de transição de cor */
+            }
+
+            .sala:hover {
+                background-color: #2980b9; /* Cor de fundo ao passar o mouse */
+            }
+            .lista__salas{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+
+            .main{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                margin-top: 5em;
+            }
+
+        </style>
+<body>
+    
+    <div id="lista__salas" class="lista__salas">
+        <h1>Bem vindo</h1>
+        <a href="sala.html?room=sala1" class="sala">
+        Sala1
+        </a>
+    </div>
+
+    <div class="main">
+        <!-- ID -->
+        <div id="div-id">
+        </div>
+
+        <!-- Formulario -->
+        <form action="sala.html" method="GET">
+            <label for="">Sala</label>
+            <input type="text" name="room" >
+            <input type="submit" value="Entrar">
+        </form>
+    </div>
+    
+
+
+
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+
+        const divId = document.querySelector('#div-id');
+        
+        const socket = io();
+
+        socket.on('enviando_id', (id) => {
+            
+            criandoElemento(id);
+        });
+
+        function criandoElemento(id){
+
+            divId.innerHTML = `
+                    <h1>${id}</h1>
+            `;
+            
+        }
+
+
+    </script>
+</body>
+</html>
